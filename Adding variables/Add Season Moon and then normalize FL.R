@@ -1,6 +1,7 @@
 library(oce)
 
-setwd("C:\\R_work\\Bayesian movement model\\Threshers\\Raw data")
+# Set wd for thresher data
+setwd("C:\\R_work\\Data\Movement_data\\Thresher_data\\Raw_data")
 
 # Read in mako tagging data
 Original <- read.csv("MASTER_Horizontal_Movement - RAW with Cartamil.csv", header=T)
