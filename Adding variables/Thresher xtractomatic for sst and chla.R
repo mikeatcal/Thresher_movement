@@ -17,12 +17,19 @@ load("Thresher_data_Season_Moon_normalized_FL_and_z.RData")
 
 
 # Calculate error based on Vincent et al. 2002 for each location quality
+# Original$Lat.error.m <- ordered(Original$lc,
+#                                 levels = c("D", 3, 2, 1, 0, "A", "B"),
+#                                 labels = c(10, 326,511,1265,4618,5373,15535))
+# Original$Lon.error.m <- ordered(Original$lc,
+#                                 levels = c("D", 3, 2, 1, 0, "A", "B"),
+#                                 labels = c(10, 742,1355,3498,10551,10393,41219))
+# Fixed error around each point
 Original$Lat.error.m <- ordered(Original$lc,
                                 levels = c("D", 3, 2, 1, 0, "A", "B"),
-                                labels = c(10, 326,511,1265,4618,5373,15535))
+                                labels = c(3948,3948,3948,3948,3948,3948,3948))
 Original$Lon.error.m <- ordered(Original$lc,
                                 levels = c("D", 3, 2, 1, 0, "A", "B"),
-                                labels = c(10, 742,1355,3498,10551,10393,41219))
+                                labels = c(9681,9681,9681,9681,9681,9681,9681))
 Original$Lat.error.m <- as.numeric(as.character(Original$Lat.error.m))
 Original$Lon.error.m <- as.numeric(as.character(Original$Lon.error.m))
 # Convert meters of error into degrees of lat and long to put into xtraction code
