@@ -7,7 +7,6 @@ library(ggplot2)
 
 # Set wd and load data from properly formatted rdata file
 setwd("C:\\R_work\\Data\\Movement_data\\Thresher_data\\Worked_data")
-
 load("Thresher_data_Season_Moon_and_normalized_FL.rdata")
 
 #####----------------------------------------Read in shapefile-------------------------------------------#####
