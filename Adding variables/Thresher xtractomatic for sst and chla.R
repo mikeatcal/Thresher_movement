@@ -1,8 +1,4 @@
-#install.packages("curl")
-#install.packages("XML")
-#install.packages("RCurl")
-#install.packages("httr")
-
+# Load libraries
 library(ncdf4)
 library(curl)
 library("xtractomatic")
