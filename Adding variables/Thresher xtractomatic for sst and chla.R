@@ -1,4 +1,4 @@
-# Load libraries and xtractomatic
+# Load libraries
 library(ncdf4)
 library(curl)
 library("xtractomatic")
