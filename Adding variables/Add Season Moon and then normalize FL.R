@@ -1,6 +1,6 @@
 library(oce)
 
-# Set wd for thresher data
+# Set wd for thresher data to master data file in R_work
 setwd("C:\\R_work\\Data\Movement_data\\Thresher_data\\Raw_data")
 
 # Read in mako tagging data
