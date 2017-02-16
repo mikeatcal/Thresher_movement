@@ -1,3 +1,4 @@
+# Load needed libraries
 library(SDMTools)
 library(plotKML)
 library(rgdal)
