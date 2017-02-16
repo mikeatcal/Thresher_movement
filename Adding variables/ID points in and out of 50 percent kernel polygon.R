@@ -7,11 +7,17 @@ library(ggplot2)
 
 # Set wd and load data from properly formatted rdata file
 setwd("C:\\R_work\\Data\\Movement_data\\Thresher_data\\Worked_data")
-load("Thresher_data_Season_Moon_and_normalized_FL.rdata")
+load("Thresher_data_Season_ElNino_Moon_and_normalized_FL.rdata")
+
+# To load the 1 point per day data
+#setwd("C:\\R_work\\Data\\Movement_data\\Thresher_data\\Worked_data")
+#load("Thresher_data_Season_Moon_normalized_FL_and_z_1pd.rdata")
+# Change name for ease of use QUICK AND DIRTY FIX!
+#Original <- Original_1pd
 
 #####----------------------------------------Read in shapefile-------------------------------------------#####
 # Bring in thresher 50% kernel density Shapefile
-core <- readOGR("C:\\R_work\\Bayesian movement model\\Threshers\\Kernel densities\\50 kernel",
+core <- readOGR("C:\\R_work\\Data\\Movement_data\\Thresher_data\\Kernel densities\\50 kernel",
                 "50_kernel",p4s = "+proj=longlat +ellps=WGS84 +datum=WGS84")
 
 ####Convert Longs into the right format####
@@ -52,9 +58,11 @@ Th_map <- ggmap(Cal_map)+
 Th_map
 #ggsave(Th_map, file =paste("C:/R_work/Thresher_behavior/Kernel_density/Plot core SDSU kernel with ggplot/Completed plots/Points with 50 Kernel split Res from Tran.pdf"))
 
-setwd("C:\\R_work\\Bayesian movement model\\Threshers\\Adding variables to data")
-#save(Original, file="Thresher_data_Season_Moon_normalized_FL_and_z.rdata")
+setwd("C:\\R_work\\Data\\Movement_data\\Thresher_data\\Worked_data")
+save(Original, file="Thresher_data_Season_ElNino_Moon_normalized_FL_and_z.rdata")
 
+# Save when using the 1 point per day data
+#save(Original, file="Thresher_data_Season_ElNino_Moon_normalized_FL_and_z_1pd.rdata")
 
 
 
