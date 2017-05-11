@@ -6,11 +6,12 @@ require(ggplot2)
 require(mapdata)
 
 # Set the wd to wherever these files are
-setwd("C:\\R_work\\Bayesian movement model\\Threshers\\Adding variables to data")
-load("Thresher_data_Season_Moon_normalized_FL_and_z.RData")
+setwd("C:/R_work/Bayesian movement model/Thresher_movement/data/Worked_data")
+#load("Thresher_data_Season_ElNino_Moon_normalized_FL_and_z.RData")
+load("Thresher_data_Season_ElNino_Moon_normalized_FL_and_z.RData")
 
 # Average error anound points assumed for ERDDAP data pulls
-
+Original$lc <- as.factor(2)
 
 # Calculate error based on Vincent et al. 2002 for each location quality
 # Original$Lat.error.m <- ordered(Original$lc,
@@ -20,12 +21,12 @@ load("Thresher_data_Season_Moon_normalized_FL_and_z.RData")
 #                                 levels = c("D", 3, 2, 1, 0, "A", "B"),
 #                                 labels = c(10, 742,1355,3498,10551,10393,41219))
 # Fixed error around each point
-Original$Lat.error.m <- ordered(Original$lc,
-                                levels = c("D", 3, 2, 1, 0, "A", "B"),
-                                labels = c(3948,3948,3948,3948,3948,3948,3948))
-Original$Lon.error.m <- ordered(Original$lc,
-                                levels = c("D", 3, 2, 1, 0, "A", "B"),
-                                labels = c(9681,9681,9681,9681,9681,9681,9681))
+ Original$Lat.error.m <- ordered(Original$lc,
+                                 levels = c("D", 3, 2, 1, 0, "A", "B"),
+                                 labels = c(3948,3948,3948,3948,3948,3948,3948))
+ Original$Lon.error.m <- ordered(Original$lc,
+                                 levels = c("D", 3, 2, 1, 0, "A", "B"),
+                                 labels = c(9681,9681,9681,9681,9681,9681,9681))
 Original$Lat.error.m <- as.numeric(as.character(Original$Lat.error.m))
 Original$Lon.error.m <- as.numeric(as.character(Original$Lon.error.m))
 # Convert meters of error into degrees of lat and long to put into xtraction code
@@ -38,8 +39,8 @@ Original$date <- as.Date(Original$dt, format='%Y/%m/%d')
 #Original <- Original[0:100,]  # for running a test on a smaller dataset 
 
 # Set up everything for xtraction
-xpos <- Original$long
-ypos <- Original$lat
+xpos <- Original$Lon
+ypos <- Original$Lat
 tpos <- Original$date
 xlen <- Original$Lat.error.deg
 ylen <- Original$Lon.error.deg
@@ -49,6 +50,12 @@ ylen <- Original$Lon.error.deg
 #agmsst <- xtracto(xpos,ypos,tpos,"agsstamday",xlen=xlen,ylen=ylen,verbose=TRUE)
 #goes <- xtracto(xpos,ypos,tpos,"gassta1day",xlen=xlen,ylen=ylen,verbose=TRUE)
 #mur <- xtracto(xpos,ypos,tpos,"jplMURSST",xlen=xlen,ylen=ylen,verbose=TRUE)
+
+# Save the extracted data
+#setwd("C:\\R_work\\Bayesian movement model\\Thresher_movement\\data\\ERDDAP_data")
+#save(agmsst, file="SST_xtract_1m_agmsst.RData")
+#save(goes, file="SST_xtract_1d_goes.RData")
+#save(mur, file="SST_xtract_1d_mur.RData")
 
 # Load the already extracted data
 setwd("C:\\R_work\\Bayesian movement model\\Mako\\Adding variables to data\\ERDDAP data")
@@ -75,7 +82,7 @@ xlim<-c(-156,-100)
 w <- map_data("worldHires",ylim = ylim, xlim = xlim)
 
 # plot sst using ggplot
-sst.plot <- ggplot(Original,aes(x=long,y=lat)) +
+sst.plot <- ggplot(Original,aes(x=Lon,y=Lat)) +
   geom_point(aes(colour=sst,shape=factor(missing.sst)),size=2.) +
   scale_shape_manual(values=c(19,1)) +
   geom_polygon(data= w,aes(x=long,y=lat,group=group), fill = "grey80") +
@@ -88,7 +95,7 @@ sst.plot
 ################################################ Get Chl-a values ########################################################
 # Run extraction for Chlorophyll-a (mhchlamday=Global monthly composite, erdMWchla3day=3 day composite)
 # All years
-#GMC <- xtracto(xpos,ypos,tpos,"mhchlamday",xlen=xlen,ylen=ylen,verbose=TRUE)
+GMC <- xtracto(xpos,ypos,tpos,"mhchlamday",xlen=xlen,ylen=ylen,verbose=TRUE)
 
 ####################### Within bounds of  MODIS ############################
 
@@ -110,8 +117,9 @@ ylen_new <- Original_boxed$Lon.error.deg
 
 
 
-#setwd("C:\\R_work\\Bayesian movement model\\Mako\\Adding variables to data\\ERDDAP data")
 # Save chl-a data sets
+setwd("C:\\R_work\\Bayesian movement model\\Thresher_movement\\data\\ERDDAP_data")
+save(GMC, file="mhchlamday_1m.RData")
 #save(viirschl, file="viirschl_new.RData")
 #save(modischl3d, file="modischl3d.RData")
 
@@ -151,6 +159,6 @@ chl.plot
 
 
 # Save the newly created dataset with sst included to the MASTER data file
-setwd("C:\\R_work\\Bayesian movement model\\Mako\\Master data")
-#save(Original, file="Mako_data_Season_El_Nino_Moon_z_sst_chl_and_normalized.RData")
+setwd("C:/R_work/Bayesian movement model/Thresher_movement/data/Worked_data")
+#save(Original, file="Thresher_data_Season_ElNino_Moon_normalized_FL_z_sst_chl.RData")
 #write.csv(Original, file="Mako_data_Season_El_Nino_Moon_z_sst_chl_and_normalized.csv")

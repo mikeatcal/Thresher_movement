@@ -6,6 +6,7 @@ setwd("C:/R_work/Bayesian movement model/Thresher_movement/data/Raw_data")
 
 # Read in mako tagging data
 Original <- read.csv("MASTER_Horizontal_Movement - RAW with Cartamil.csv", header=T)
+#Original <- read.csv("MASTER_Horizontal_Movement - RAW NOAA Only.csv", header=T)
 
 ################################################## Add Season to Data ##################################################
 # Add a correctly formatted date and time column to the data
