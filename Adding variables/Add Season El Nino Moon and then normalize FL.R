@@ -2,7 +2,7 @@
 library(oce)
 
 # Set wd for thresher data to master data file in R_work
-setwd("C:\\R_work\\Data\\Movement_data\\Thresher_data\\Raw_data")
+setwd("C:/R_work/Bayesian movement model/Thresher_movement/data/Raw_data")
 
 # Read in mako tagging data
 Original <- read.csv("MASTER_Horizontal_Movement - RAW with Cartamil.csv", header=T)
@@ -48,7 +48,7 @@ Original$FL <- ((Original$FL_real - mean(Original$FL_real))/sd(Original$FL_real)
 
 ########################################### Add 3 El Nino Indices ##################################################
 # Read in El nino indices 
-setwd("C:\\R_work\\Data\\Movement_data\\Thresher_data\\El_nino_index_data")
+setwd("C:/R_work/Bayesian movement model/Thresher_movement/data/El_nino_index_data")
 NPGO <- read.csv("NPGO Index.csv")
 PDO <- read.csv("PDO Index.csv")
 MEI <- read.csv("MEI Index.csv")
@@ -71,11 +71,11 @@ for(i in 1:length(Original$dt)){
                                 latitude=Original$lat[i])$illuminatedFraction
 }
 
-setwd("C:\\R_work\\Data\\Movement_data\\Thresher_data\\Worked_data")
-save(Original, file="Thresher_data_Season_ElNino_Moon_and_normalized_FL.RData")
+setwd("C:/R_work/Bayesian movement model/Thresher_movement/data/Worked_data")
+#save(Original, file="Thresher_data_Season_ElNino_Moon_and_normalized_FL.RData")
 #write.csv(Original, file="Mako_data_Season_El_Nino_Moon_z_and_normalized.csv")
 
 # Find total number of unique data points, only 1 point per day
 Original_1pd <-  Original[!duplicated(Original[,c('ptt','dt')]),]
-save(Original_1pd, file="Thresher_data_Season_ElNino_Moon_and_normalized_FL_1pd.RData")
+#save(Original_1pd, file="Thresher_data_Season_ElNino_Moon_and_normalized_FL_1pd.RData")
 
