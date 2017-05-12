@@ -17,14 +17,10 @@ load("Thresher_data_Season_ElNino_Moon_normalized_FL_z_sst_chl.rdata")
 
 # Plot data to see what it looks like
 ggplot()+
-  geom_point(data=Original, aes(x=long, y=lat, color=as.factor(z)))
+  geom_point(data=Original, aes(x=Lon, y=Lat, color=as.factor(z)))
 
 # Remove cols that should not be in random forrest
-Original$long <- Original$ptt <- Original$lat <- Original$dt <- Original$Spring <- Original$Summer <- Original$Fall <- Original$Winter <- Original$Month <- Original$Day <- Original$Year <- Original$hour <- Original$min <- Original$sec <- Original$lc <- Original$Species <- Original$SPOT_SEQ <- Original$date <- Original$time <- Original$PDT_date <- Original$PDT_date_a <- Original$lc_order <- Original$FL_real <- Original$Lat.error.m <- Original$Lat.error.deg <- Original$Lon.error.m <- Original$Lon.error.deg <- NULL
-# Make season and z factors
-Original$Season <- as.factor(Original$Season)
-Original$sex <- as.factor(Original$sex)
-Original$z <- as.factor(Original$z)
+Original$ptt <- Original$Lon <- Original$Lon_Ori <- Original$Lat <- Original$dt <- Original$date <- Original$Spring <- Original$Summer <- Original$Fall <- Original$Winter <- Original$Month <- Original$Day <- Original$Year <- Original$lc <- Original$FL_real <- Original$Lat.error.m <- Original$Lat.error.deg <- Original$Lon.error.m <- Original$Lon.error.deg <- Original$missing.chl <- Original$missing.sst <- NULL
 
 # Fill na vlaues in sst and chl from last observation
 library(zoo)
@@ -33,11 +29,10 @@ Original$sst <- na.locf(Original$sst, fromLast = TRUE)
 
 # Remove other two El Nino indices
 #Original$NPGO_Index <- Original$PDO_Index <- NULL
-# Remove chl becuase it has perfect correlation
-Original$chl <- NULL
 
-# Dataset to include in head of paper
-#save.image(file = "MASTER_Mako_Random_Forrest_data_set_with_ptt.RData")
+# Remove chl becuase it has perfect correlation
+#Original$chl <- NULL
+
 ####----------------------------------------------Clara Data--------------------------------------------------####
 # Use this code for data compression, i.e. finding representive data centrodies and then run random forest on them
 #clara example (in 'cluster' package)
@@ -58,21 +53,31 @@ Original$chl <- NULL
 
 ####------------------------------------------Basic purmuted model--------------------------------------------####
     Start <- Sys.time()
-rp <- rfPermute(z ~ ., Original, sampsize = c(1000,1000), replace = FALSE, ntree = 10000, nrep = 100, a=0.1)
+rp <- rfPermute(z ~ ., Original, sampsize = c(500,500), replace = FALSE, ntree = 10000, nrep = 100, a=0.1)
     End <- Sys.time() # Just so I know how long the model was run
     Start - End
 plot(rp.importance(rp))
 print(rp)
 
-setwd("C:\\R_work\\Bayesian movement model\\Mako\\Random forest")
-#save.image(file = "Mako_Random_Forrest_with_chl_sst_proper_error_Results_OnlyMEI.RData")
-#save.image(file = "Mako_Random_Forrest_with_chl_sst_proper_error_Results_OnlyMEI_no_chl.RData")
-#load(file = "Mako_Random_Forrest_with_chl_sst_proper_error_Results_OnlyNPGO2.RData")
+# With only highest enviornmental index
+Original_only1 <- Original
+Original_only1$MEI_Index <- Original_only1$PDO_Index <- NULL
+Start <- Sys.time()
+rp2 <- rfPermute(z ~ ., Original, sampsize = c(500,500), replace = FALSE, ntree = 10000, nrep = 100, a=0.1)
+End <- Sys.time() # Just so I know how long the model was run
+Start - End
+plot(rp.importance(rp))
+print(rp)
+
+setwd("C:\\R_work\\Bayesian movement model\\Thresher_movement\\Random Forest")
+#save.image(file = "Threshers_Random_Forrest_with_chl_sst_Results.RData")
+save.image(file = "Mako_Random_Forrest_with_chl_sst_proper_error_Results_OnlyMEI_no_chl.RData")
+#load(file = "Threshers_Random_Forrest_with_chl_sst_Results_OnlyNPGO.RData")
 # Load the below file to get all El Nino indices
 #save.image(file = "Mako_Random_Forrest_with_chl_sst_proper_error_Results.RData")
 #load(file = "Mako_Random_Forrest_with_chl_sst_proper_error_Results.RData")
 #save.image(file = "Mako_Random_Forrest_with_sst_proper_error_Results_no_chl.RData")
-load(file = "Mako_Random_Forrest_with_sst_proper_error_Results_no_chl.RData")
+load(file = "Threshers_Random_Forrest_with_chl_sst_Results.RData")
 
 #### Plot with just one El nino index####
 # Plot just the Gini Importance Scores
