@@ -119,7 +119,7 @@ ylen_new <- Original_boxed$Lon.error.deg
 
 # Save chl-a data sets
 setwd("C:\\R_work\\Bayesian movement model\\Thresher_movement\\data\\ERDDAP_data")
-save(GMC, file="mhchlamday_1m.RData")
+#save(GMC, file="mhchlamday_1m.RData")
 #save(viirschl, file="viirschl_new.RData")
 #save(modischl3d, file="modischl3d.RData")
 
@@ -127,7 +127,7 @@ save(GMC, file="mhchlamday_1m.RData")
 setwd("C:\\R_work\\Bayesian movement model\\Mako\\Adding variables to data\\ERDDAP data")
 #load("SST_xtract.RData")
 load("GMC.RData")
-load("modischl3d.RData")
+#load("modischl3d.RData")
 
 # First combine the two dataframes (the input and the output) into one,
 # so it will be easy to take into account the locations that didn’t
