@@ -124,10 +124,10 @@ setwd("C:\\R_work\\Bayesian movement model\\Thresher_movement\\data\\ERDDAP_data
 #save(modischl3d, file="modischl3d.RData")
 
 # Load the already extracted data
-setwd("C:\\R_work\\Bayesian movement model\\Mako\\Adding variables to data\\ERDDAP data")
+setwd("C:\\R_work\\Bayesian movement model\\Thresher_movement\\data\\ERDDAP_data")
 #load("SST_xtract.RData")
-load("GMC.RData")
-#load("modischl3d.RData")
+#load("GMC.RData")
+load("mhchlamday_1m.RData")
 
 # First combine the two dataframes (the input and the output) into one,
 # so it will be easy to take into account the locations that didn’t
@@ -147,7 +147,7 @@ xlim<-c(-156,-100)
 w <- map_data("worldHires",ylim = ylim, xlim = xlim)
 
 # plot chl using ggplot
-chl.plot <- ggplot(Original,aes(x=long,y=lat)) +
+chl.plot <- ggplot(Original,aes(x=Lon,y=Lat)) +
   geom_point(aes(colour=chl,shape=factor(missing.chl)),size=2.) +
   scale_shape_manual(values=c(19,1)) +
   geom_polygon(data= w,aes(x=long,y=lat,group=group), fill = "grey80") +
