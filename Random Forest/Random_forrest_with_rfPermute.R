@@ -63,15 +63,15 @@ print(rp)
 Original_only1 <- Original
 Original_only1$MEI_Index <- Original_only1$PDO_Index <- NULL
 Start <- Sys.time()
-rp2 <- rfPermute(z ~ ., Original, sampsize = c(500,500), replace = FALSE, ntree = 10000, nrep = 100, a=0.1)
+rp2 <- rfPermute(z ~ ., Original_only1, sampsize = c(500,500), replace = FALSE, ntree = 10000, nrep = 100, a=0.1)
 End <- Sys.time() # Just so I know how long the model was run
 Start - End
-plot(rp.importance(rp))
-print(rp)
+plot(rp.importance(rp2))
+print(rp2)
 
-setwd("C:\\R_work\\Bayesian movement model\\Thresher_movement\\Random Forest")
+setwd("C:\\R_work\\Bayesian movement model\\Thresher_movement\\data\\Results\\Random Forest")
 #save.image(file = "Threshers_Random_Forrest_with_chl_sst_Results.RData")
-save.image(file = "Mako_Random_Forrest_with_chl_sst_proper_error_Results_OnlyMEI_no_chl.RData")
+#save.image(file = "Mako_Random_Forrest_with_chl_sst_proper_error_Results_OnlyMEI_no_chl.RData")
 #load(file = "Threshers_Random_Forrest_with_chl_sst_Results_OnlyNPGO.RData")
 # Load the below file to get all El Nino indices
 #save.image(file = "Mako_Random_Forrest_with_chl_sst_proper_error_Results.RData")
