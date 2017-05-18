@@ -69,6 +69,26 @@ Start - End
 plot(rp.importance(rp2))
 print(rp2)
 
+# With no enviornmental index
+Original_only1 <- Original
+Original_only1$MEI_Index <- Original_only1$PDO_Index <- Original_only1$NPGO_Index <- NULL
+Start <- Sys.time()
+rp3 <- rfPermute(z ~ ., Original_only1, sampsize = c(500,500), replace = FALSE, ntree = 10000, nrep = 100, a=0.1)
+End <- Sys.time() # Just so I know how long the model was run
+Start - End
+plot(rp.importance(rp3))
+print(rp3)
+
+# With no chl only top enviornmental index
+Original_only1 <- Original
+Original_only1$MEI_Index <- Original_only1$PDO_Index <- Original_only1$chl <- NULL
+Start <- Sys.time()
+rp4 <- rfPermute(z ~ ., Original_only1, sampsize = c(500,500), replace = FALSE, ntree = 10000, nrep = 100, a=0.1)
+End <- Sys.time() # Just so I know how long the model was run
+Start - End
+plot(rp.importance(rp4))
+print(rp4)
+
 setwd("C:\\R_work\\Bayesian movement model\\Thresher_movement\\data\\Results\\Random Forest")
 #save.image(file = "Threshers_Random_Forrest_with_chl_sst_Results.RData")
 #save.image(file = "Mako_Random_Forrest_with_chl_sst_proper_error_Results_OnlyMEI_no_chl.RData")
