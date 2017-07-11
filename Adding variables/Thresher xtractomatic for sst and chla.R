@@ -20,7 +20,7 @@ Original$lc <- as.factor(2)
 # Original$Lon.error.m <- ordered(Original$lc,
 #                                 levels = c("D", 3, 2, 1, 0, "A", "B"),
 #                                 labels = c(10, 742,1355,3498,10551,10393,41219))
-# Fixed error around each point
+# Fixed error around each point as mean of lat and long error from Vincent et al. 2002
  Original$Lat.error.m <- ordered(Original$lc,
                                  levels = c("D", 3, 2, 1, 0, "A", "B"),
                                  labels = c(3948,3948,3948,3948,3948,3948,3948))
