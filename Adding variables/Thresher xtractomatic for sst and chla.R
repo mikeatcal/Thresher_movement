@@ -20,13 +20,13 @@ Original$lc <- as.factor(2)
 # Original$Lon.error.m <- ordered(Original$lc,
 #                                 levels = c("D", 3, 2, 1, 0, "A", "B"),
 #                                 labels = c(10, 742,1355,3498,10551,10393,41219))
-# Fixed error around each point as mean of lat and long error from Vincent et al. 2002
+# Fixed error around each point as mean of lat and long error from Vincent et al. 2002, not including deployment error
  Original$Lat.error.m <- ordered(Original$lc,
                                  levels = c("D", 3, 2, 1, 0, "A", "B"),
-                                 labels = c(3948,3948,3948,3948,3948,3948,3948))
+                                 labels = c(4605,4605,4605,4605,4605,4605,4605))
  Original$Lon.error.m <- ordered(Original$lc,
                                  levels = c("D", 3, 2, 1, 0, "A", "B"),
-                                 labels = c(9681,9681,9681,9681,9681,9681,9681))
+                                 labels = c(11293,11293,11293,11293,11293,11293,11293))
 Original$Lat.error.m <- as.numeric(as.character(Original$Lat.error.m))
 Original$Lon.error.m <- as.numeric(as.character(Original$Lon.error.m))
 # Convert meters of error into degrees of lat and long to put into xtraction code
@@ -49,7 +49,7 @@ ylen <- Original$Lon.error.deg
 # Run extraction for sst (agsstamday=Global monthly composite, gassta1day=GOES Daily Satellite SST values, jplMURSST=JPL MUR Daily Satellite SST values)
 #agmsst <- xtracto(xpos,ypos,tpos,"agsstamday",xlen=xlen,ylen=ylen,verbose=TRUE)
 #goes <- xtracto(xpos,ypos,tpos,"gassta1day",xlen=xlen,ylen=ylen,verbose=TRUE)
-#mur <- xtracto(xpos,ypos,tpos,"jplMURSST",xlen=xlen,ylen=ylen,verbose=TRUE)
+#mur <- xtracto(xpos,ypos,tpos,"jplMURSST",xlen=xlen,ylen=ylen,verbose=TRUE)  #listed as DEPRECATED now!
 
 # Save the extracted data
 #setwd("C:\\R_work\\Bayesian movement model\\Thresher_movement\\data\\ERDDAP_data")
@@ -64,10 +64,10 @@ load("SST_xtract.RData")
 # First combine the two dataframes (the input and the output) into one,
 # so it will be easy to take into account the locations that didn’t
 # retrieve a value.
-Original$sst <- mur$mean
+#Original$sst <- mur$mean
 #Original$sst <- agmsst$mean
-#Original$sst <- goes$mean
-gtitle <- "JPL MUR Daily Satellite SST values"
+Original$sst <- goes$mean
+gtitle <- "GOES Daily Satellite SST values"
 #gtitle <- "Monthy Satellite SST values"
 #gtitle <- "GOES Daily Satellite SST values"
 
@@ -126,8 +126,8 @@ setwd("C:\\R_work\\Bayesian movement model\\Thresher_movement\\data\\ERDDAP_data
 # Load the already extracted data
 setwd("C:\\R_work\\Bayesian movement model\\Thresher_movement\\data\\ERDDAP_data")
 #load("SST_xtract.RData")
-#load("GMC.RData")
-load("mhchlamday_1m.RData")
+load("GMC.RData")
+#load("mhchlamday_1m.RData")
 
 # First combine the two dataframes (the input and the output) into one,
 # so it will be easy to take into account the locations that didn’t
@@ -160,5 +160,5 @@ chl.plot
 
 # Save the newly created dataset with sst included to the MASTER data file
 setwd("C:/R_work/Bayesian movement model/Thresher_movement/data/Worked_data")
-#save(Original, file="Thresher_data_Season_ElNino_Moon_normalized_FL_z_sst_chl.RData")
+#save(Original, file="Thresher_data_Season_ElNino_Moon_normalized_FL_z_sst_chl_larger_error.RData")
 #write.csv(Original, file="Mako_data_Season_El_Nino_Moon_z_sst_chl_and_normalized.csv")
