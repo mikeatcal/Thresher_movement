@@ -39,6 +39,9 @@
     # Get thresher data
     load("Thresher_data_Season_ElNino_Moon_normalized_FL_z_sst_chl.rdata")
   
+    # Change z from a factor to numeric (produces an error if it is a factor)
+    Original$z <- as.numeric(as.character(Original$z))
+  
     #Define track lengths and number of tracks for hierarchical model structure
     # Track lengths
     tracks <- table(Original$ptt)
